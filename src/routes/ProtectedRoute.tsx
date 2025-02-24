@@ -1,11 +1,24 @@
-import { Navigate } from "react-router-dom";
-import { useAppSelector } from "../hooks/useRedux"; // Gunakan Redux hooks
+import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
+import api from "../api/axios";
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    const { user } = useAppSelector((state) => state.auth);
+const ProtectedRoute = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
 
-    // return user ? <Outlet /> : <Navigate to="/" />;
-    return user ? children : <Navigate to="/" replace />;
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await api.get("/auth/check"); // Backend endpoint untuk cek auth
+        setIsAuthenticated(true);
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+    checkAuth();
+  }, []);
+
+  if (isAuthenticated === null) return null;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;
