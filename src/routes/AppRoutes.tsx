@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import Dashboard from "../pages/Dashboard/Home";
+import Dashboard from "../pages/DashboardPages/Home";
 import Login from "../pages/AuthPages/Login";
 import Register from "../pages/AuthPages/Register";
 import { ScrollToTop } from "../components/common/ScrollToTop";
 import AppLayout from "../layouts/AppLayout";
 import GuestRoute from "./GuestRoute";
+import NotFound from "../pages/OtherPages/NotFound";
 
 const AppRoutes = () => {
     return (
@@ -30,7 +31,7 @@ const AppRoutes = () => {
                 </Route>
 
                 {/* Fallback Route */}
-                {/* <Route path="*" element={<NotFound />} /> */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );
