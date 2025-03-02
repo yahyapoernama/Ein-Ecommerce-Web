@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { useNavigate } from "react-router";
-import api from "../../api/axios";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux";
+import { logout } from "../../store/slices/authSlice";
 
 export default function UserDropdown() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const [isOpen, setIsOpen] = useState(false);
 
   function toggleDropdown() {
@@ -16,14 +19,15 @@ export default function UserDropdown() {
     setIsOpen(false);
   }
 
-  const handleLogOut = async () => {
-    try {
-      await api.post("/auth/logout");
-      navigate("/login", { replace: true });
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
+  const handleLogOut = () => {
+    dispatch(logout());
   };
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="relative">

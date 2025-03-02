@@ -6,6 +6,8 @@ import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
 import api from "../../api/axios";
 import Alert from "../ui/alert/Alert";
+import { useAppDispatch } from "../../hooks/useRedux";
+import { checkAuth } from "../../store/slices/authSlice";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,18 +22,24 @@ export default function LoginForm() {
 
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      await api.post('/auth/login', formData);
+      await api.post(
+        "/auth/login",
+        formData,
+        { withCredentials: true } // Wajib agar cookies dikirim
+      );
+      dispatch(checkAuth()); // Perbarui state auth
       setSuccess(() => ['Login berhasil!']);
       setError([]);
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (error: Error | any) {
       if (error.response?.status === 400) {
         setError(

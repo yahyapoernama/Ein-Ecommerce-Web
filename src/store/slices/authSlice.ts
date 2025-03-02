@@ -1,39 +1,50 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface User {
-    id: string;
-    email: string;
-    name: string;
-    username: string;
-    token: string;
-    role: string;
-}
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import api from "../../api/axios";
 
 interface AuthState {
-    user: User | null;
-    isAuthenticated: boolean;
+  isAuthenticated: boolean;
+  user: any | null;
+  loading: boolean;
 }
 
 const initialState: AuthState = {
-    user: null,
-    isAuthenticated: false,
+  isAuthenticated: false,
+  user: null,
+  loading: true,
 };
 
-const authSlice = createSlice({
-    name: "auth",
-    initialState,
-    reducers: {
-        login: (state, action: PayloadAction<User>) => {
-            state.user = action.payload;
-            state.isAuthenticated = true;
-        },
-        logout: (state) => {
-            state.user = null;
-            state.isAuthenticated = false;
-        },
-    },
+// Mengecek session dari server (cookies)
+export const checkAuth = createAsyncThunk("auth/checkAuth", async () => {
+  try {
+    const response = await api.get("/auth/check", { withCredentials: true });
+    return response.data; // { isAuthenticated: true, user: {...} }
+  } catch (error) {
+    return { isAuthenticated: false, user: null };
+  }
 });
 
-export const { login, logout } = authSlice.actions;
-export default authSlice.reducer;
+// Logout
+export const logout = createAsyncThunk("auth/logout", async () => {
+  await api.post("/auth/logout", {}, { withCredentials: true });
+  return { isAuthenticated: false, user: null };
+});
 
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isAuthenticated = action.payload.isAuthenticated;
+        state.user = action.payload.user;
+        state.loading = false;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+      });
+  },
+});
+
+export default authSlice.reducer;

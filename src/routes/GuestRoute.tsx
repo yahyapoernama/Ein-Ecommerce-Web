@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import api from "../api/axios";
+import { useAppSelector } from "../hooks/useRedux";
 
 const GuestRoute = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const { isAuthenticated, loading } = useAppSelector((state) => state.auth);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await api.get("/auth/check"); // Cek apakah token valid
-        setIsAuthenticated(true); // User sudah login
-      } catch (error) {
-        setIsAuthenticated(false); // User belum login
-      }
-    };
-    checkAuth();
-  }, []);
+  if (loading) return null; // Tidak menampilkan apapun saat loading
 
-  if (isAuthenticated === null) return null;
-  return isAuthenticated ? <Navigate to="/dashboard" /> : <Outlet />;
+  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Outlet />;
 };
 
 export default GuestRoute;
