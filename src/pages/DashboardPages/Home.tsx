@@ -9,6 +9,9 @@ export default function Home() {
       />
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12 space-y-6 xl:col-span-7">
+          <h4 className="mt-2 font-bold text-gray-800 text-title-sm dark:text-white/90">
+            Ini Homepage
+          </h4>
           {/* <EcommerceMetrics /> */}
           {/* <MonthlySalesChart /> */}
         </div>
