@@ -23,6 +23,11 @@ const navItems: NavItem[] = [
     name: "Dashboard",
     path: "/store/dashboard",
   },
+  {
+    icon: <BoxCubeIcon />,
+    name: "Products",
+    path: "/store/products",
+  },
 ];
 
 const othersItems: NavItem[] = [];
