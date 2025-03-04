@@ -6,7 +6,7 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
-  UserCircleIcon,
+  BoxCubeIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 
@@ -21,12 +21,7 @@ const navItems: NavItem[] = [
   {
     icon: <GridIcon />,
     name: "Dashboard",
-    path: "/",
-  },
-  {
-    icon: <UserCircleIcon />,
-    name: "User Profile",
-    path: "/profile",
+    path: "/store/dashboard",
   },
 ];
 
@@ -248,25 +243,22 @@ const AppSidebar: React.FC = () => {
             <>
               <img
                 className="dark:hidden"
-                src="/src/assets/react.svg"
+                src="/images/logo/logo-with-text-dark.png"
                 alt="Logo"
-                width={32}
-                height={32}
+                width={200}
               />
               <img
                 className="hidden dark:block"
-                src="/src/assets/react.svg"
+                src="/favicon.ico"
                 alt="Logo"
                 width={32}
-                height={32}
               />
             </>
           ) : (
             <img
-              src="/src/assets/react.svg"
+              src="/favicon.ico"
               alt="Logo"
               width={32}
-              height={32}
             />
           )}
         </Link>

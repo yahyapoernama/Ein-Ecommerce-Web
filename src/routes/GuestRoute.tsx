@@ -6,7 +6,7 @@ const GuestRoute = () => {
 
   if (loading) return null; // Tidak menampilkan apapun saat loading
 
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Outlet />;
+  return isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 };
 
 export default GuestRoute;

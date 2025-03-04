@@ -1,6 +1,6 @@
 import PageMeta from "../../components/common/PageMeta";
 
-export default function Home() {
+export default function Index() {
   return (
     <>
       <PageMeta
