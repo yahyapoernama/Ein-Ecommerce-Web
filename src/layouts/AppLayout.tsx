@@ -32,7 +32,7 @@ const LayoutContent: React.FC<AppLayoutProps> = ({ withSidebar = true }) => {
         </>
       )}
       {!withSidebar && (
-        <div className="flex-1 mx-auto max-w-screen-2xl">
+        <div className="flex-1 mx-auto">
           <AppHeader withSidebar={withSidebar} />
           <Outlet />
         </div>
