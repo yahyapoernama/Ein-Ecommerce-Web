@@ -16,13 +16,6 @@ export default function Index() {
             <div className="space-y-6">
                 <ComponentCard
                     title="Products"
-                    button={
-                        <Button variant="primary" size="xs" startIcon={<PlusIcon />} onClick={() => { 
-                            alert("Add Product");
-                        }}>
-                            Add Product
-                        </Button>
-                    }
                 >
                     <BasicTableOne />
                 </ComponentCard>
