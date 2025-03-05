@@ -1,23 +1,21 @@
 import ComponentCard from "../../components/common/ComponentCard";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import PageMeta from "../../components/common/PageMeta";
-import BasicTableOne from "./components/ProductsTable";
-import Button from "../../components/ui/button/Button";
-import { PlusIcon } from "../../icons";
+import ProductTable from "./components/ProductTable";
 
 export default function Index() {
     return (
         <>
             <PageMeta
-                title="Dashboard - Ein Ecommerce"
-                description="This is React.js Ecommerce Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
+                title="Products - Ein Ecommerce"
+                description="This is a page for managing products, you can add, edit, delete product in this page"
             />
             <PageBreadcrumb pageTitle="Products" />
             <div className="space-y-6">
                 <ComponentCard
                     title="Products"
                 >
-                    <BasicTableOne />
+                    <ProductTable />
                 </ComponentCard>
             </div>
         </>

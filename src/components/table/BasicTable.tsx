@@ -2,13 +2,13 @@ import { PlusCircleIcon, ArrowPathIcon } from "@heroicons/react/16/solid";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import DataTable, { createTheme } from "react-data-table-component";
-import { tableData } from "../../pages/ProductsPages/sample/SampleProduct";
 import Button from "../ui/button/Button";
 import IconWrapper from "../ui/button/IconWrapper";
 import { useTheme } from "../../context/ThemeContext";
 
 interface BasicTableProps {
     columns: any[];
+    tableData: any[];
 }
 
 createTheme('solarized', {
@@ -39,7 +39,7 @@ const customStyles = {
     },
 };
 
-export default function BasicTable({ columns }: BasicTableProps) {
+export default function BasicTable({ columns, tableData }: BasicTableProps) {
     const [search, setSearch] = useState("");
     const [filteredData, setFilteredData] = useState(tableData);
     const [isReloading, setIsReloading] = useState(false);

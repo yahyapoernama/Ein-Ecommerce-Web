@@ -1,4 +1,4 @@
-import { Product } from "../sample/SampleProduct";
+import { Product, tableData } from "../sample/SampleProduct";
 import Button from "../../../components/ui/button/Button";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import IconWrapper from "../../../components/ui/button/IconWrapper";
@@ -15,7 +15,7 @@ const columns = [
     selector: (row: Product) => row.id,
   },
   {
-    name: "Gambar",
+    name: "Image",
     width: "7%",
     center: true,
     selector: (row: Product) => row.image,
@@ -24,18 +24,18 @@ const columns = [
     ),
   },
   {
-    name: "Nama Produk",
+    name: "Product Name",
     selector: (row: Product) => row.name,
     sortable: true,
   },
   {
-    name: "Kategori",
+    name: "Category",
     width: "18%",
     selector: (row: Product) => row.category,
     sortable: true,
   },
   {
-    name: "Harga",
+    name: "Price",
     width: "17%",
     format: (row: Product) => currency(Number(row.price)),
     selector: (row: Product) => row.price,
@@ -62,7 +62,7 @@ const columns = [
     ),
   },
   {
-    name: "Aksi",
+    name: "Action",
     width: "12%",
     center: true,
     cell: (row: Product) => (
@@ -92,8 +92,8 @@ const columns = [
   },
 ];
 
-export default function ProductsTable() {
+export default function ProductTable() {
   return (
-    <BasicTable columns={columns} />
+    <BasicTable columns={columns} tableData={tableData} />
   );
 }

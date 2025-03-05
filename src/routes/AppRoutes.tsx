@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "../pages/DashboardPages/Index";
-import Products from "../pages/ProductsPages/Index";
+import Products from "../pages/ProductPages/Index";
 import Login from "../pages/AuthPages/Login";
 import Register from "../pages/AuthPages/Register";
 import { ScrollToTop } from "../components/common/ScrollToTop";
