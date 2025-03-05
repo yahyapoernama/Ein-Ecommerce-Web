@@ -254,9 +254,9 @@ const AppSidebar: React.FC = () => {
               />
               <img
                 className="hidden dark:block"
-                src="/favicon.ico"
+                src="/images/logo/logo-with-text-white.png"
                 alt="Logo"
-                width={32}
+                width={200}
               />
             </>
           ) : (
