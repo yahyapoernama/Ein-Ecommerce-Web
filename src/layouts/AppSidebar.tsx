@@ -8,6 +8,7 @@ import {
   HorizontaLDots,
   BoxCubeIcon,
 } from "../icons";
+import { TagIcon } from "@heroicons/react/24/outline";
 import { useSidebar } from "../context/SidebarContext";
 
 type NavItem = {
@@ -27,6 +28,11 @@ const navItems: NavItem[] = [
     icon: <BoxCubeIcon />,
     name: "Products",
     path: "/store/products",
+  },
+  {
+    icon: <TagIcon />,
+    name: "Kategori",
+    path: "/store/categories",
   },
 ];
 

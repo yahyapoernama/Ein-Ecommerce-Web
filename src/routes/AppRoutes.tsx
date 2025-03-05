@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Dashboard from "../pages/DashboardPages/Index";
 import Products from "../pages/ProductPages/Index";
+import Categories from "../pages/CategoryPages/Index";
 import Login from "../pages/AuthPages/Login";
 import Register from "../pages/AuthPages/Register";
 import { ScrollToTop } from "../components/common/ScrollToTop";
@@ -30,6 +31,7 @@ const AppRoutes = () => {
                     <Route path="store" element={<AppLayout />}>
                         <Route path="dashboard" element={<Dashboard />} />
                         <Route path="products" element={<Products />} />
+                        <Route path="categories" element={<Categories />} />
                     </Route>
                 </Route>
 
