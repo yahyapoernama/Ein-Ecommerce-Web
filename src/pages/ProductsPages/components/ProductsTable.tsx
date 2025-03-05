@@ -1,9 +1,10 @@
-import DataTable from "react-data-table-component";
-import { useState } from "react";
-import { Product, tableData } from "../sample/SampleProduct";
+import { Product } from "../sample/SampleProduct";
 import Button from "../../../components/ui/button/Button";
-import { PlusCircleIcon, ArrowPathIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import IconWrapper from "../../../components/ui/button/IconWrapper";
+import { currency } from "../../../utils/currency";
+import BasicTable from "../../../components/table/BasicTable";
+import Badge from "../../../components/ui/badge/Badge";
 
 // Columns definition for react-data-table-component
 const columns = [
@@ -24,7 +25,6 @@ const columns = [
   },
   {
     name: "Nama Produk",
-    // width: "28%",
     selector: (row: Product) => row.name,
     sortable: true,
   },
@@ -37,6 +37,7 @@ const columns = [
   {
     name: "Harga",
     width: "17%",
+    format: (row: Product) => currency(Number(row.price)),
     selector: (row: Product) => row.price,
     sortable: true,
   },
@@ -46,16 +47,18 @@ const columns = [
     selector: (row: Product) => row.status,
     sortable: true,
     cell: (row: Product) => (
-      <span
-        className={`px-2 py-1 rounded text-xs font-semibold ${row.status === "Delivered"
-          ? "bg-green-100 text-green-800"
-          : row.status === "Pending"
-            ? "bg-yellow-100 text-yellow-800"
-            : "bg-red-100 text-red-800"
-          }`}
+      <Badge
+        size="sm"
+        color={
+          row.status === "Delivered"
+            ? "success"
+            : row.status === "Pending"
+              ? "warning"
+              : "error"
+        }
       >
         {row.status}
-      </span>
+      </Badge>
     ),
   },
   {
@@ -89,87 +92,8 @@ const columns = [
   },
 ];
 
-const customStyles = {
-  headCells: {
-    style: {
-      fontWeight: "bold",
-    },
-  },
-  rows: {
-    style: {
-      minHeight: "48px", // Tinggi row
-    },
-  },
-};
-
 export default function ProductsTable() {
-  const [search, setSearch] = useState("");
-  const [filteredData, setFilteredData] = useState(tableData);
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const keyword = event.target.value.toLowerCase();
-    setSearch(keyword);
-
-    const filtered = tableData.filter((item) =>
-      item.name.toLowerCase().includes(keyword)
-    );
-    setFilteredData(filtered);
-  };
-
-  const handleReload = () => {
-    setFilteredData(tableData);
-    setSearch("");
-  };
-
   return (
-    <>
-      {/* Input Pencarian */}
-      <div className="flex items-center justify-between">
-        <div className="flex space-x-2">
-          <Button
-            variant="success"
-            size="sm"
-            startIcon={
-              <IconWrapper size="xs">
-                <PlusCircleIcon />
-              </IconWrapper>
-            }
-            onClick={() => {
-              alert("Add Product");
-            }}>
-            Add Product
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            startIcon={
-              <IconWrapper size="xs">
-                <ArrowPathIcon />
-              </IconWrapper>
-            }
-            onClick={handleReload}>
-            Reload Table
-          </Button>
-        </div>
-        <input
-          type="text"
-          placeholder="Cari Produk..."
-          value={search}
-          onChange={handleSearch}
-          className="p-2 border border-gray-300 rounded w-64 transition duration-300"
-        />
-      </div>
-      {/* DataTable */}
-      <div className="overflow-hidden rounded-lg border border-gray-300">
-        <DataTable
-          columns={columns}
-          data={filteredData}
-          customStyles={customStyles}
-          pagination
-          highlightOnHover
-        />
-      </div>
-    </>
+    <BasicTable columns={columns} />
   );
 }
-
