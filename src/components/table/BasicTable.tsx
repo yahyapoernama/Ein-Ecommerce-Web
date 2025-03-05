@@ -37,6 +37,7 @@ const customStyles = {
             minHeight: "48px", // Tinggi row
         },
     },
+
 };
 
 export default function BasicTable({ columns, tableData }: BasicTableProps) {
@@ -83,7 +84,7 @@ export default function BasicTable({ columns, tableData }: BasicTableProps) {
                         Add Data
                     </Button>
                     <Button
-                        variant="primary"
+                        variant="dark"
                         size="sm"
                         startIcon={
                             <IconWrapper size="xs">
@@ -99,11 +100,11 @@ export default function BasicTable({ columns, tableData }: BasicTableProps) {
                     placeholder="Search ..."
                     value={search}
                     onChange={handleSearch}
-                    className="p-2 border dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 w-64 text-sm rounded-lg"
+                    className="p-2 border dark:bg-gray-800 dark:text-white border-gray-300 dark:border-gray-600 w-64 text-sm rounded"
                 />
             </div>
             {/* DataTable */}
-            <div className="relative overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
+            <div className="relative overflow-hidden rounded border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
                 <AnimatePresence>
                     {isReloading && (
                         <motion.div
@@ -122,7 +123,11 @@ export default function BasicTable({ columns, tableData }: BasicTableProps) {
                     data={filteredData}
                     theme={theme === 'dark' ? 'solarized' : 'default'}
                     customStyles={customStyles}
-                    noDataComponent="No data available"
+                    noDataComponent={
+                        <div className="p-10 text-center text-gray-500 dark:text-white">
+                            No data available
+                        </div>
+                    }
                     pagination
                 />
             </div>

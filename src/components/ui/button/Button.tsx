@@ -3,12 +3,13 @@ import { ReactNode } from "react";
 interface ButtonProps {
   children: ReactNode; // Button text or content
   size?: "xs" | "sm" | "md" | "lg" | "xl"; // Button size
-  variant?: "primary" | "secondary" | "success" | "warning" | "danger" | "outline"; // Button variant
+  variant?: "primary" | "secondary" | "success" | "warning" | "danger" | "dark" | "outline"; // Button variant
   startIcon?: ReactNode; // Icon before the text
   endIcon?: ReactNode; // Icon after the text
   onClick?: () => void; // Click handler
   disabled?: boolean; // Disabled state
   className?: string; // Disabled state
+  rounded?: "rounded" | "rounded-md" | "rounded-lg" | "rounded-xl" | "rounded-2xl";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   endIcon,
   onClick,
   className = "",
+  rounded="rounded",
   disabled = false,
 }) => {
   // Size Classes
@@ -42,13 +44,15 @@ const Button: React.FC<ButtonProps> = ({
       "bg-warning-500 text-white shadow-theme-xs hover:bg-warning-600 disabled:bg-warning-300",
     danger:
       "bg-error-500 text-white shadow-theme-xs hover:bg-error-600 disabled:bg-error-300",
+    dark:
+      "bg-gray-800 text-white shadow-theme-xs hover:bg-gray-700 disabled:bg-gray-600",
     outline:
       "bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03] dark:hover:text-gray-300",
   };
 
   return (
     <button
-      className={`inline-flex items-center justify-center gap-2 rounded-lg transition ${className} ${
+      className={`inline-flex items-center justify-center gap-2 ${rounded} transition ${className} ${
         sizeClasses[size]
       } ${variantClasses[variant]} ${
         disabled ? "cursor-not-allowed opacity-50" : ""

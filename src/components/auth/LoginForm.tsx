@@ -39,7 +39,7 @@ export default function LoginForm() {
       dispatch(checkAuth()); // Perbarui state auth
       setSuccess(() => ['Login berhasil!']);
       setError([]);
-      navigate("/dashboard");
+      navigate('/');
     } catch (error: Error | any) {
       if (error.response?.status === 400) {
         setError(
@@ -139,13 +139,13 @@ export default function LoginForm() {
                   </div> */}
                   <Link
                     to="/reset-password"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                    className="text-sm text-warning-500 hover:text-warning-600 dark:text-warning-400"
                   >
                     Forgot password?
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm">
+                  <Button className="w-full" size="sm" variant="dark">
                     Login
                   </Button>
                 </div>
@@ -157,7 +157,7 @@ export default function LoginForm() {
                 Don&apos;t have an account? {""}
                 <Link
                   to="/register"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  className="text-warning-500 hover:text-warning-600 dark:text-warning-400"
                 >
                   Register
                 </Link>

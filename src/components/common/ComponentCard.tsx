@@ -4,6 +4,7 @@ interface ComponentCardProps {
   className?: string; // Additional custom classes for styling
   desc?: string; // Description text
   button?: React.ReactNode; // Optional button in the top right corner
+  rounded?: "rounded" | "rounded-md" | "rounded-lg" | "rounded-xl" | "rounded-2xl"; // Optional rounded corners
 }
 
 const ComponentCard: React.FC<ComponentCardProps> = ({
@@ -11,11 +12,12 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   children,
   className = "",
   desc = "",
+  rounded = "rounded",
   button,
 }) => {
   return (
     <div
-      className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
+      className={`${rounded} border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
     >
       {/* Card Header */}
       <div className="relative px-6 py-5">

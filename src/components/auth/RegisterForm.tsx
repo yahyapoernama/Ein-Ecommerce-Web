@@ -7,6 +7,7 @@ import Checkbox from "../form/input/Checkbox";
 import { useNavigate } from "react-router-dom";
 import Alert from "../ui/alert/Alert";
 import api from "../../api/axios";
+import Button from "../ui/button/Button";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -46,7 +47,7 @@ export default function RegisterForm() {
       await api.post('/auth/register', formData);
       setSuccess(() => ['Register berhasil!']);
       setError([]);
-      navigate('/dashboard');
+      navigate('/');
     } catch (error: Error | any) {
       if (error.response?.status === 400) {
         setError(
@@ -229,9 +230,9 @@ export default function RegisterForm() {
                 </div>
                 {/* <!-- Button --> */}
                 <div>
-                  <button className="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600">
+                  <Button className="w-full" size="sm" variant="dark">
                     Register
-                  </button>
+                  </Button>
                 </div>
               </div>
             </form>
@@ -241,7 +242,7 @@ export default function RegisterForm() {
                 Already have an account? {""}
                 <Link
                   to="/login"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  className="text-warning-500 hover:text-warning-600 dark:text-warning-400"
                 >
                   Login
                 </Link>
