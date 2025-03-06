@@ -8,15 +8,18 @@ import { AppWrapper } from "./components/common/PageMeta.tsx";
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
+import { ModalProvider } from "./context/ModalContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
-    <StrictMode>
-      <Provider store={store}>
-        <ThemeProvider>
+  <StrictMode>
+    <Provider store={store}>
+      <ThemeProvider>
+        <ModalProvider>
           <AppWrapper>
             <App />
           </AppWrapper>
-        </ThemeProvider>
-      </Provider>
-    </StrictMode>
+        </ModalProvider>
+      </ThemeProvider>
+    </Provider>
+  </StrictMode>
 );

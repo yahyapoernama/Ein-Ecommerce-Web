@@ -94,6 +94,10 @@ const columns = [
 
 export default function ProductTable() {
   return (
-    <BasicTable columns={columns} tableData={tableData} />
+    <BasicTable
+      columns={columns} 
+      tableData={tableData}
+      addDataButton={true}
+    />
   );
 }

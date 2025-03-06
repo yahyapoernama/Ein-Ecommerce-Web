@@ -5,10 +5,15 @@ import DataTable, { createTheme } from "react-data-table-component";
 import Button from "../ui/button/Button";
 import IconWrapper from "../ui/button/IconWrapper";
 import { useTheme } from "../../context/ThemeContext";
+import { Modal } from "../ui/modal";
+import { useModal } from "../../context/ModalContext";
 
 interface BasicTableProps {
     columns: any[];
     tableData: any[];
+    addDataButton?: boolean;
+    modalTitle?: string;
+    modalContent?: React.ReactNode;
 }
 
 createTheme('solarized', {
@@ -40,11 +45,18 @@ const customStyles = {
 
 };
 
-export default function BasicTable({ columns, tableData }: BasicTableProps) {
+export default function BasicTable({
+    columns, 
+    tableData,
+    addDataButton = false,
+    modalTitle,
+    modalContent,
+    }: BasicTableProps) {
     const [search, setSearch] = useState("");
     const [filteredData, setFilteredData] = useState(tableData);
     const [isReloading, setIsReloading] = useState(false);
     const { theme } = useTheme();
+    const { isOpen, openModal, closeModal } = useModal();
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const keyword = event.target.value.toLowerCase();
@@ -70,19 +82,19 @@ export default function BasicTable({ columns, tableData }: BasicTableProps) {
             {/* Input Pencarian */}
             <div className="flex items-center justify-between">
                 <div className="flex space-x-2">
-                    <Button
-                        variant="success"
-                        size="sm"
-                        startIcon={
-                            <IconWrapper size="xs">
-                                <PlusCircleIcon />
-                            </IconWrapper>
-                        }
-                        onClick={() => {
-                            alert("Add Data");
-                        }}>
-                        Add Data
-                    </Button>
+                    {addDataButton && (
+                        <Button
+                            variant="success"
+                            size="sm"
+                            startIcon={
+                                <IconWrapper size="xs">
+                                    <PlusCircleIcon />
+                                </IconWrapper>
+                            }
+                            onClick={openModal}>
+                            Add Data
+                        </Button>
+                    )}
                     <Button
                         variant="dark"
                         size="sm"
@@ -114,7 +126,7 @@ export default function BasicTable({ columns, tableData }: BasicTableProps) {
                             transition={{ duration: 0.5 }}
                             className="absolute inset-0 bg-white dark:bg-gray-dark bg-opacity-80 dark:bg-opacity-80 flex items-center justify-center z-10"
                         >
-                            <div className="animate-spin rounded-full border-t-2 border-b-2 border-blue-500 h-10 w-10" />
+                            <div className="animate-spin rounded-full border-t-2 border-b-2 border-gray-800 h-10 w-10" />
                         </motion.div>
                     )}
                 </AnimatePresence>
@@ -130,6 +142,11 @@ export default function BasicTable({ columns, tableData }: BasicTableProps) {
                     }
                     pagination
                 />
+
+                <Modal isOpen={isOpen} onClose={closeModal} closeOnOverlayClick={false} className="max-w-[50vw] p-6">
+                    <h2 className="text-xl font-semibold mb-4">{modalTitle}</h2>
+                    {modalContent}
+                </Modal>
             </div>
         </>
     );

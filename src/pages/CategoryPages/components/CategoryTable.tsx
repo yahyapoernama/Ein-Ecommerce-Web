@@ -4,6 +4,9 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/react/16/solid";
 import IconWrapper from "../../../components/ui/button/IconWrapper";
 import BasicTable from "../../../components/table/BasicTable";
 import Badge from "../../../components/ui/badge/Badge";
+import Label from "../../../components/form/Label";
+import Input from "../../../components/form/input/InputField";
+import { useModal } from "../../../context/ModalContext";
 
 // Columns definition for react-data-table-component
 const columns = [
@@ -67,8 +70,36 @@ const columns = [
   },
 ];
 
-export default function CategoryTable() {
+const CategoryTable = () => {
+  const { closeModal } = useModal();
+
   return (
-    <BasicTable columns={columns} tableData={tableData} />
+    <BasicTable
+      columns={columns}
+      tableData={tableData}
+      addDataButton={true}
+      modalTitle="Add Data"
+      modalContent={
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          // const formData = new FormData(e.currentTarget);
+          // const name = formData.get('name') as string;
+          alert("uhuy");
+        }}>
+          <Label htmlFor="name">Name</Label>
+          <Input type="text" id="name" name="name" placeholder="Category Name" className="w-full" />
+          <div className="mt-4">
+            <Button variant="success" size="sm" className="mr-1" type="submit">
+              Submit
+            </Button>
+            <Button variant="secondary" size="sm" onClick={closeModal}>
+              Close
+            </Button>
+          </div>
+        </form>
+      }
+    />
   );
-}
+};
+
+export default CategoryTable;
