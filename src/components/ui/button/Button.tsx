@@ -10,6 +10,7 @@ interface ButtonProps {
   disabled?: boolean; // Disabled state
   className?: string; // Disabled state
   rounded?: "rounded" | "rounded-md" | "rounded-lg" | "rounded-xl" | "rounded-2xl";
+  type?: "button" | "submit" | "reset";
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -20,8 +21,9 @@ const Button: React.FC<ButtonProps> = ({
   endIcon,
   onClick,
   className = "",
-  rounded="rounded",
+  rounded = "rounded",
   disabled = false,
+  type = "button",
 }) => {
   // Size Classes
   const sizeClasses = {
@@ -59,6 +61,7 @@ const Button: React.FC<ButtonProps> = ({
       }`}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {startIcon && <span className="flex items-center">{startIcon}</span>}
       {children}

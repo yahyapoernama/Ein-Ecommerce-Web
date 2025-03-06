@@ -145,7 +145,7 @@ export default function LoginForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm" variant="dark">
+                  <Button className="w-full" size="sm" variant="dark" type="submit">
                     Login
                   </Button>
                 </div>

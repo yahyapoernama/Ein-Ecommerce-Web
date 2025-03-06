@@ -230,7 +230,7 @@ export default function RegisterForm() {
                 </div>
                 {/* <!-- Button --> */}
                 <div>
-                  <Button className="w-full" size="sm" variant="dark">
+                  <Button className="w-full" size="sm" variant="dark" type="submit">
                     Register
                   </Button>
                 </div>
