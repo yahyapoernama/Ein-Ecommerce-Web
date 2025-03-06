@@ -1,16 +1,13 @@
 import GridShape from "../../components/common/GridShape";
-import { useNavigate } from "react-router";
 import PageMeta from "../../components/common/PageMeta";
 import Button from "../../components/ui/button/Button";
 
-export default function NotFound() {
-  const navigate = useNavigate();
-
+export default function networkError() {
   return (
     <>
       <PageMeta
-        title="Not Found | Ein Ecommerce"
-        description="This is the 404 Not Found page for Ein Ecommerce, indicating that the page you are looking for cannot be found."
+        title="Network Error | Ein Ecommerce"
+        description="It seems like our server is currently unreachable. Please try again later or contact our customer support."
       />
       <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
         <GridShape />
@@ -19,19 +16,19 @@ export default function NotFound() {
             ERROR
           </h1>
 
-          <img src="/images/error/404.svg" alt="404" className="dark:hidden filter brightness-0" />
+          <img src="/images/error/503.svg" alt="503" className="dark:hidden filter brightness-0" />
           <img
-            src="/images/error/404-dark.svg"
-            alt="404"
+            src="/images/error/503-dark.svg"
+            alt="503"
             className="hidden dark:block"
           />
 
           <p className="mt-10 mb-6 text-base text-gray-700 dark:text-gray-400 sm:text-lg">
-            We can’t seem to find the page you are looking for!
+            Network error or server unreachable. Please try again.
           </p>
 
-          <Button onClick={() => navigate("/")} variant="dark">
-            Back to Home Page
+          <Button onClick={() => window.location.reload()} variant="dark">
+            Try Again
           </Button>
         </div>
         {/* <!-- Footer --> */}

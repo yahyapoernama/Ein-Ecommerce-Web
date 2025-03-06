@@ -4,12 +4,14 @@ import api from "../../api/axios";
 interface AuthState {
   isAuthenticated: boolean;
   user: any | null;
+  networkError: boolean;
   loading: boolean;
 }
 
 const initialState: AuthState = {
   isAuthenticated: false,
   user: null,
+  networkError: false,
   loading: true,
 };
 
@@ -18,8 +20,12 @@ export const checkAuth = createAsyncThunk("auth/checkAuth", async () => {
   try {
     const response = await api.get("/auth/check", { withCredentials: true });
     return response.data; // { isAuthenticated: true, user: {...} }
-  } catch (error) {
-    return { isAuthenticated: false, user: null };
+  } catch (error : any) {
+    let networkError = false;
+    if (error.message === "Network Error") {
+      networkError = true;
+    }
+    return { isAuthenticated: false, user: null, networkError: networkError };
   }
 });
 
@@ -38,11 +44,14 @@ const authSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isAuthenticated = action.payload.isAuthenticated;
         state.user = action.payload.user;
+        state.networkError = action.payload.networkError;
         state.loading = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.isAuthenticated = false;
         state.user = null;
+        state.networkError = false;
+        state.loading = false;
       });
   },
 });
