@@ -97,7 +97,6 @@ export default function ProductTable() {
     <BasicTable
       columns={columns} 
       tableData={tableData}
-      addDataButton={true}
     />
   );
 }

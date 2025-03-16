@@ -10,10 +10,13 @@ export default function Index() {
                 title="Category - Ein Ecommerce"
                 description="This is a page for managing categories, you can add, edit, delete product in this page"
             />
-            <PageBreadcrumb pageTitle="Category" />
+            <PageBreadcrumb
+                pageTitle="Category"
+                pageDescription="This is a page for managing categories, you can add, edit, delete product in this page"
+            />
             <div className="space-y-6">
                 <ComponentCard
-                    title="Category"
+                    title="Category Table"
                 >
                     <CategoryTable />
                 </ComponentCard>
